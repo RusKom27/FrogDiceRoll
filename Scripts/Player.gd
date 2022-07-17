@@ -49,11 +49,10 @@ func _ready():
 	MAXSPEED = JumpDistance / (2*TimeToJumpPeak)
 	
 
-func _process(delta):
-	#print(State.keys()[current_state])
+func _physics_process(delta):
 	if is_on_floor() or is_on_wall():
 		if current_state == State.PreparingToJump and JumpPower <= MAXSPEED:
-			JumpPower += 10
+			JumpPower += 12
 			JumpHeight = JumpPower/2
 			GRAVITY = (JumpHeight)/pow(TimeToJumpPeak,2)
 			JUMPSPEED = GRAVITY * TimeToJumpPeak
@@ -61,7 +60,9 @@ func _process(delta):
 			JumpAvialability = true
 	elif JumpAvialability == true && CoyoteJumpTimer.is_stopped():
 		CoyoteJumpTimer.start()
-		
+
+func _process(delta):
+	#print(State.keys()[current_state])
 	if Input.get_action_strength("ui_right") - \
 				Input.get_action_strength("ui_left") != 0 and \
 				(current_state == State.Idle or \
@@ -71,6 +72,7 @@ func _process(delta):
 		animated_sprite.set_flip_h(false)
 	if JumpDirection.x < 0:
 		animated_sprite.set_flip_h(true)
+	
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		if current_state == State.Idle or \
@@ -109,8 +111,6 @@ func _process(delta):
 	if current_state == State.Idle:
 		Velocity = Vector2(0, 0)
 		JumpPower = 0
-	print(State.keys()[current_state])
-	print(Velocity)
 	$JumpScale.visible = current_state == State.PreparingToJump
 
 	match current_state:
@@ -152,3 +152,8 @@ func add_dice(number):
 
 func _on_CoyoteJumpTimer_timeout():
 	JumpAvialability = false
+
+
+func _on_Area2D_area_entered(area):
+	if area.get_parent().name == "Portal" and area.get_parent().visible:
+		get_parent().end_level()

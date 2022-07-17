@@ -5,31 +5,31 @@ var active = false
 
 func _ready():
 	randomize()
-	$DiceOutline.play("disabled")
+	$Sprites/DiceOutline.play("disabled")
 	number = randi()%7
-	$DiceDots.texture = Global.dice_dots[number - 1]
+	$Sprites/DiceDots.texture = Global.dice_dots[number - 1]
 
 
 func _on_Timer_timeout():
 	if !active:
-		$Dice.play("roll")
-		$RollSweep.play("sweep")
+		$Sprites/Dice.play("roll")
+		$Sprites/RollSweep.play("sweep")
 	
 
 func _on_RollSweep_animation_finished():
-	$Dice.play("idle")
-	$RollSweep.play("idle")
+	$Sprites/Dice.play("idle")
+	$Sprites/RollSweep.play("idle")
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_parent().name == "Player" and !active:
 		area.get_parent().add_dice(number)
 		$Timer.stop()
 		active = true
-		$DiceOutline.play("active")
+		$Sprites/DiceOutline.play("active")
 
 
 func _on_RollSweep_frame_changed():
-	if $RollSweep.frame == 2:
+	if $Sprites/RollSweep.frame == 2:
 		randomize()
 		number = randi()%7
-		$DiceDots.texture = Global.dice_dots[number - 1]
+		$Sprites/DiceDots.texture = Global.dice_dots[number - 1]

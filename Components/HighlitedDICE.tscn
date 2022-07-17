@@ -28,7 +28,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.2, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 13, 1 ), Vector2( 13, -1 ) ]
+"values": [ Vector2( 21, 1 ), Vector2( 21, -1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Label3:rect_position")
@@ -40,7 +40,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.3, 0.9 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 26, 1 ), Vector2( 26, -1 ) ]
+"values": [ Vector2( 30, 1 ), Vector2( 30, -1 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Label4:rect_position")
@@ -52,7 +52,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.4, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 42, 1 ), Vector2( 42, -1 ) ]
+"values": [ Vector2( 51, 1 ), Vector2( 51, -1 ) ]
 }
 
 [node name="HighlitedDICE" type="Control"]
@@ -60,9 +60,9 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Label" type="Label" parent="."]
-margin_top = -0.5
-margin_right = 13.0
-margin_bottom = 34.5
+margin_top = -0.128919
+margin_right = 21.0
+margin_bottom = 34.8711
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -70,10 +70,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "D"
 
 [node name="Label2" type="Label" parent="."]
-margin_left = 13.0
-margin_top = -1.0
-margin_right = 26.0
-margin_bottom = 34.0
+margin_left = 21.0
+margin_top = 0.204415
+margin_right = 34.0
+margin_bottom = 35.2044
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -81,10 +81,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "I"
 
 [node name="Label3" type="Label" parent="."]
-margin_left = 26.0
-margin_top = -0.666667
-margin_right = 39.0
-margin_bottom = 34.3333
+margin_left = 30.0
+margin_top = 0.537748
+margin_right = 51.0
+margin_bottom = 35.5377
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -92,10 +92,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "C"
 
 [node name="Label4" type="Label" parent="."]
-margin_left = 42.0
-margin_top = -0.333333
-margin_right = 55.0
-margin_bottom = 34.6667
+margin_left = 51.0
+margin_top = 0.871081
+margin_right = 69.0
+margin_bottom = 35.8711
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )

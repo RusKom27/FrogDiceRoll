@@ -9,12 +9,17 @@
 atlas = ExtResource( 4 )
 region = Rect2( 6, 6, 35, 2 )
 
-[sub_resource type="CircleShape2D" id=24]
-radius = 8.0
-
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 600, 200, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
@@ -31,14 +36,6 @@ region = Rect2( 300, 200, 100, 100 )
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
 region = Rect2( 400, 200, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 200, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 1 )
-region = Rect2( 600, 200, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
@@ -87,6 +84,11 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "prepare_jump",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": false,
 "name": "jump",
@@ -95,11 +97,6 @@ animations = [ {
 "frames": [ SubResource( 15 ) ],
 "loop": true,
 "name": "fall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 21 ), SubResource( 22 ) ],
-"loop": true,
-"name": "prepare_jump",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
@@ -117,6 +114,9 @@ animations = [ {
 "name": "blink",
 "speed": 10.0
 } ]
+
+[sub_resource type="CircleShape2D" id=24]
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id=25]
 radius = 8.51469
@@ -139,15 +139,15 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 35, 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, -7 )
-shape = SubResource( 24 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -50, -77 )
 frames = SubResource( 16 )
 animation = "idle"
 centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -11 )
+shape = SubResource( 24 )
 
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -160,7 +160,7 @@ one_shot = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -1.5, -5.5 )
+position = Vector2( 0, -5 )
 shape = SubResource( 25 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -172,3 +172,4 @@ smoothing_enabled = true
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_CoyoteJumpTimer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

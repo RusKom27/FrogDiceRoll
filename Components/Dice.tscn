@@ -1,13 +1,10 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/Dice.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/dice_rool_sheet.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/dice_roll_sweep_sheet.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/dice_dot1.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/dice_outline_sheet.png" type="Texture" id=5]
-
-[sub_resource type="RectangleShape2D" id=24]
-extents = Vector2( 32, 32 )
 
 [sub_resource type="AtlasTexture" id=41]
 atlas = ExtResource( 2 )
@@ -128,36 +125,69 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 32, 32 )
+
 [sub_resource type="RectangleShape2D" id=43]
 extents = Vector2( 24, 4 )
+
+[sub_resource type="Animation" id=64]
+resource_name = "lift_down"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 4, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 4, 1 ),
+"update": 0,
+"values": [ Vector2( 32, 32 ), Vector2( 32, 40 ) ]
+}
 
 [node name="Dice" type="StaticBody2D"]
 script = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 32, 32 )
-shape = SubResource( 24 )
+[node name="Sprites" type="Node2D" parent="."]
 
-[node name="Dice" type="AnimatedSprite" parent="."]
+[node name="Dice" type="AnimatedSprite" parent="Sprites"]
 position = Vector2( 32, 32 )
 frames = SubResource( 30 )
 animation = "idle"
 
-[node name="DiceDots" type="Sprite" parent="."]
+[node name="DiceDots" type="Sprite" parent="Sprites"]
 position = Vector2( -16, -16 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="DiceOutline" type="AnimatedSprite" parent="."]
+[node name="DiceOutline" type="AnimatedSprite" parent="Sprites"]
 position = Vector2( 32, 32 )
 frames = SubResource( 47 )
 animation = "disabled"
 
-[node name="RollSweep" type="AnimatedSprite" parent="."]
+[node name="RollSweep" type="AnimatedSprite" parent="Sprites"]
 position = Vector2( 32, 32 )
 z_index = 100
 frames = SubResource( 39 )
 animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Dice"]]
+position = Vector2( 32, 32 )
+shape = SubResource( 24 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
@@ -169,7 +199,10 @@ autostart = true
 position = Vector2( 32, 4 )
 shape = SubResource( 43 )
 
-[connection signal="animation_finished" from="RollSweep" to="." method="_on_RollSweep_animation_finished"]
-[connection signal="frame_changed" from="RollSweep" to="." method="_on_RollSweep_frame_changed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/lift_down = SubResource( 64 )
+
+[connection signal="animation_finished" from="Sprites/RollSweep" to="." method="_on_RollSweep_animation_finished"]
+[connection signal="frame_changed" from="Sprites/RollSweep" to="." method="_on_RollSweep_frame_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_shape_entered" from="Area2D" to="." method="_on_Area2D_area_shape_entered"]

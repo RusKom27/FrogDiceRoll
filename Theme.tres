@@ -1,8 +1,26 @@
-[gd_resource type="Theme" load_steps=2 format=2]
+[gd_resource type="Theme" load_steps=7 format=2]
 
 [ext_resource path="res://DynamicFont.tres" type="DynamicFont" id=1]
 
+[sub_resource type="StyleBoxTexture" id=1]
+
+[sub_resource type="StyleBoxTexture" id=2]
+
+[sub_resource type="StyleBoxTexture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=4]
+
+[sub_resource type="StyleBoxTexture" id=5]
+
 [resource]
+Button/colors/font_color_hover = Color( 0.835294, 0.862745, 0.113725, 1 )
+Button/colors/font_color_pressed = Color( 0.256454, 0.281726, 0.382813, 1 )
+Button/fonts/font = ExtResource( 1 )
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 5 )
 Label/colors/font_color = Color( 0.835294, 0.862745, 0.113725, 1 )
 Label/colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 Label/fonts/font = ExtResource( 1 )
