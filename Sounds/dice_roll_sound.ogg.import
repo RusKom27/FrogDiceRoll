@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/dice_roll_sound.ogg-81dd6d81a569c84bc7ae321bf39dec01.oggstr"
+
+[deps]
+
+source_file="res://Sounds/dice_roll_sound.ogg"
+dest_files=[ "res://.import/dice_roll_sound.ogg-81dd6d81a569c84bc7ae321bf39dec01.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

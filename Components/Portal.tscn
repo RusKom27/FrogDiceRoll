@@ -1,7 +1,9 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Portal.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/portal_sheet.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/open_portal_sound.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/portal.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape2D" id=41]
 radius = 18.0
@@ -112,7 +114,20 @@ animation = "init"
 visible = false
 frames = SubResource( 60 )
 animation = "idle"
+frame = 2
 playing = true
+
+[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 4.369
+pitch_scale = 2.84
+bus = "Effects"
+
+[node name="IdleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -23.597
+pitch_scale = 0.97
+bus = "Effects"
 
 [connection signal="animation_finished" from="InitialEffect" to="." method="_on_InitialEffect_animation_finished"]
 [connection signal="frame_changed" from="InitialEffect" to="." method="_on_InitialEffect_frame_changed"]

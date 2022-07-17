@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dice_sound.mp3-262e60d4224305d3e30419eaeb3b0ece.mp3str"
+
+[deps]
+
+source_file="res://Sounds/dice_sound.mp3"
+dest_files=[ "res://.import/dice_sound.mp3-262e60d4224305d3e30419eaeb3b0ece.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

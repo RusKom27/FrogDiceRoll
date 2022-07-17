@@ -22,7 +22,6 @@ enum State {
 
 onready var animated_sprite = $AnimatedSprite
 onready var CoyoteJumpTimer = $CoyoteJumpTimer
-onready var JumpBufferTimer = $JumpBufferTimer
 
 var Velocity = Vector2()
 var current_state = State.Idle
@@ -77,10 +76,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if current_state == State.Idle or \
 				current_state == State.PreparingToJump:
+			$PrepareJumpSound.play()
 			current_state = State.PreparingToJump
 	
 	if Input.is_action_just_released("ui_accept"):
 		if current_state == State.PreparingToJump:
+			$PrepareJumpSound.stop()
 			var jump_out_effect = Global.jump_out_effect_resource.instance()
 			jump_out_effect.position = position
 			get_parent().add_child(jump_out_effect)
@@ -157,3 +158,5 @@ func _on_CoyoteJumpTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.get_parent().name == "Portal" and area.get_parent().visible:
 		get_parent().end_level()
+
+

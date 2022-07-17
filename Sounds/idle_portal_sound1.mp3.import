@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/idle_portal_sound1.mp3-2a4546a270cafb44ad4d218af511494a.mp3str"
+
+[deps]
+
+source_file="res://Sounds/idle_portal_sound1.mp3"
+dest_files=[ "res://.import/idle_portal_sound1.mp3-2a4546a270cafb44ad4d218af511494a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/EffectObject.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/JumpInEffectObject.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/frog_jump_effect_sheet.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/footstep_grass_003.ogg" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=47]
 atlas = ExtResource( 2 )
@@ -38,5 +39,11 @@ script = ExtResource( 1 )
 position = Vector2( -50, -77 )
 frames = SubResource( 46 )
 centered = false
+
+[node name="JumpInSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -13.11
+pitch_scale = 0.92
+bus = "Effects"
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

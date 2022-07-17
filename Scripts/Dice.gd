@@ -22,6 +22,9 @@ func _on_RollSweep_animation_finished():
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_parent().name == "Player" and !active:
+		print("dice")
+		$DiceSound.play()
+		
 		area.get_parent().add_dice(number)
 		$Timer.stop()
 		active = true
@@ -30,6 +33,11 @@ func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape
 
 func _on_RollSweep_frame_changed():
 	if $Sprites/RollSweep.frame == 2:
+		$DiceRollSound.play()
 		randomize()
 		number = randi()%7
 		$Sprites/DiceDots.texture = Global.dice_dots[number - 1]
+
+
+func _on_DiceSound_finished():
+	$DiceSound.stop()

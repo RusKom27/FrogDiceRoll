@@ -11,10 +11,18 @@ onready var dice_dots = [
 	load("res://Sprites/dice_dot6.png"),
 ]
 
+onready var sound_off_on_texture = [
+	load("res://Sprites/sound_on.png"),
+	load("res://Sprites/sound_off.png"),
+	
+]
+
 onready var levels = [
+	#load("res://Levels/Level4.tscn"),
 	#load("res://Levels/Default.tscn"),
 	load("res://Levels/Level1.tscn"),
 	load("res://Levels/Level2.tscn"),
+	load("res://Levels/Level3.tscn"),
 ]
 
 onready var jump_out_effect_resource = load("res://Components/JumpOutEffect.tscn")
