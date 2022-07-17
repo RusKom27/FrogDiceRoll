@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal dice_added
+
 var animations =  {
 	"idle": "idle",
 	"prepare_jump": "prepare_jump",
@@ -48,6 +50,7 @@ func _ready():
 	
 
 func _process(delta):
+	#print(State.keys()[current_state])
 	if is_on_floor() or is_on_wall():
 		if current_state == State.PreparingToJump and JumpPower <= MAXSPEED:
 			JumpPower += 10
@@ -64,7 +67,6 @@ func _process(delta):
 				(current_state == State.Idle or \
 				current_state == State.PreparingToJump):
 		JumpDirection.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		print(JumpDirection.x)
 	if JumpDirection.x > 0:
 		animated_sprite.set_flip_h(false)
 	if JumpDirection.x < 0:
@@ -74,33 +76,43 @@ func _process(delta):
 		if current_state == State.Idle or \
 				current_state == State.PreparingToJump:
 			current_state = State.PreparingToJump
-
+	
 	if Input.is_action_just_released("ui_accept"):
 		if current_state == State.PreparingToJump:
+			var jump_out_effect = Global.jump_out_effect_resource.instance()
+			jump_out_effect.position = position
+			get_parent().add_child(jump_out_effect)
 			Jump()
 	else:
 		Velocity.y += GRAVITY*delta
 	
-	
-	if current_state == State.Idle:
-		Velocity = Vector2(0, 0)
-		JumpPower = 0
-		
-	if Velocity.y < 1000 and (current_state == State.Jump or current_state == State.Fall):
-		Velocity.x = JumpDirection.x*JumpPower
-
-	
 	if is_on_floor():
 		if !on_floor and current_state == State.Fall:
+			Velocity = Vector2(0,0)
 			current_state = State.Land
-			on_floor = true
+			var jump_in_effect = Global.jump_in_effect_resource.instance()
+			jump_in_effect.position = position
+			get_parent().add_child(jump_in_effect)
+			on_floor = is_on_floor()
+		else:
+			on_floor = false
 	elif Velocity.y <= 0:
 		current_state = State.Jump
 	elif Velocity.y >= 0:
 		current_state = State.Fall
 	
-	$JumpScale.visible = current_state == State.PreparingToJump
 	
+	
+	if current_state == State.Jump or current_state == State.Fall:
+		Velocity.x = JumpDirection.x*JumpPower
+
+	if current_state == State.Idle:
+		Velocity = Vector2(0, 0)
+		JumpPower = 0
+	print(State.keys()[current_state])
+	print(Velocity)
+	$JumpScale.visible = current_state == State.PreparingToJump
+
 	match current_state:
 		State.Idle:
 			return
@@ -114,11 +126,9 @@ func _process(delta):
 			animated_sprite.play(animations.land)
 			
 	Velocity = move_and_slide(Velocity, Vector2.UP)
-	#print(State.keys()[current_state])
 
 func Jump():
 	Velocity.y = -JUMPSPEED
-	on_floor = false
 
 func _on_IdleTimer_timeout():
 	randomize()
@@ -134,6 +144,11 @@ func _on_AnimatedSprite_animation_finished():
 	animated_sprite.animation == animations.blink:
 		current_state = State.Idle
 		animated_sprite.play(animations.idle)
+
+func add_dice(number):
+	Global.collected_dice.append(number)
+	emit_signal("dice_added", number)
+
 
 func _on_CoyoteJumpTimer_timeout():
 	JumpAvialability = false
